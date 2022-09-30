@@ -32,6 +32,13 @@ async function run() {
             res.send(profiles);
         });
 
+        app.delete('/profiles/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const result = await profileInfoCollection.deleteOne(query);
+            res.send(result);
+        });
+
     }
     finally {
 
