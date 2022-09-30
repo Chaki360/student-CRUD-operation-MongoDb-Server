@@ -40,9 +40,9 @@ async function run() {
 run().catch(console.dir);
 
 app.get('/', (req, res) => {
-    res.send(' Creator Donation Server Running well!')
+    res.send(' CRUD Operation Server Running well!')
 })
 
 app.listen(port, () => {
-    console.log(`Hello from Donation Server ${port}`)
+    console.log(`Hello from CRUD Operation MongoDB Server ${port}`)
 })
