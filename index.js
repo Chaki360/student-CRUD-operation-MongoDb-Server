@@ -12,30 +12,30 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 async function run() {
     try {
         await client.connect();
-        const profileInfoCollection = client.db('Simple-CRUD-real-time-system').collection('ProfileInfo');
-        app.post('/profiles', async (req, res) => {
-            const newProfile = req.body;
-            const result = await profileInfoCollection.insertOne(newProfile);
+        const studentsInfoCollection = client.db('Student').collection('student-info');
+        app.post('/student-info', async (req, res) => {
+            const newStudentInfo = req.body;
+            const result = await studentsInfoCollection.insertOne(newStudentInfo);
             res.send(result);
         });
 
-        app.get('/profiles', async (req, res) => {
+        app.get('/student-info', async (req, res) => {
             const query = {};
-            const cursor = profileInfoCollection.find(query);
-            const profiles = await cursor.toArray();
-            res.send(profiles)
+            const cursor = studentsInfoCollection.find(query);
+            const studentsInfo = await cursor.toArray();
+            res.send(studentsInfo)
         });
-        app.get('/profiles/:id', async (req, res) => {
+        app.get('/student-info/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: ObjectId(id) };
-            const profiles = await profileInfoCollection.findOne(query);
-            res.send(profiles);
+            const studentsInfo = await studentsInfoCollection.findOne(query);
+            res.send(studentsInfo);
         });
 
-        app.delete('/profiles/:id', async (req, res) => {
+        app.delete('/student-info/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: ObjectId(id) };
-            const result = await profileInfoCollection.deleteOne(query);
+            const result = await studentsInfoCollection.deleteOne(query);
             res.send(result);
         });
 
@@ -47,9 +47,9 @@ async function run() {
 run().catch(console.dir);
 
 app.get('/', (req, res) => {
-    res.send(' CRUD Operation Server Running well!')
+    res.send(' studentsInfo Server Running well!')
 })
 
 app.listen(port, () => {
-    console.log(`Hello from CRUD Operation MongoDB Server ${port}`)
+    console.log(`Hello from studentsInfo CRUD Operation MongoDB Server ${port}`)
 })
