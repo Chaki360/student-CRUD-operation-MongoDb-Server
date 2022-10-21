@@ -32,6 +32,21 @@ async function run() {
             res.send(studentsInfo);
         });
 
+        app.put('/student-info/:id', async (req, res) => {
+            const id = req.params.id;
+            const data = req.body;
+            const filter = { _id: ObjectId(id) };
+            const options = { upsert: true };
+
+            const updatedDoc = {
+                $set: {
+                    name: data.name
+                }
+            };
+            const result = await studentsInfoCollection.updateOne(filter, updatedDoc, options);
+            res.send(result);
+        })
+
         app.delete('/student-info/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: ObjectId(id) };
